@@ -46,6 +46,7 @@ def read_arguments_from_file(filename):
 
 
 def tag_simple(input, output, tagger):
+    print("simple: ", input, output, str(tagger))
     input_file = open(input, 'rt')
     input_text = input_file.readlines()
     input_file.close()
@@ -63,24 +64,29 @@ def tag_simple(input, output, tagger):
                     simple_tokens = i.strip().split()
                 if simple_tokens[0][0].isupper() and not simple_tokens[0] in tagger.vw.w2i:
                     simple_tokens[0] = simple_tokens[0][0] + simple_tokens[0][1:]
+                print(str(simple_tokens))
                 f.write("\n".join([x[0] + "\t" + x[1] for x in tagger.tag_sent(simple_tokens)]) + '\n')
                 f.write("\n")
                 # print("\n".join([x[0] + "\t" + x[1] for x in tagger.tag_sent(simple_tokens)]) + '\n')
 
 
 def tag_augmented(input, output, tagger):
+    print("augmented: ", input, output, str(tagger))
     input_file = open(input, 'rt')
     input_text = input_file.readlines()
     input_file.close()
     output_file = input + output
-
+    
     with open(output_file, "w") as f:
         tokens = []
         tags = []
+        print(input_text)
         for i in input_text:
             if i.strip() == '':
                 if tokens[0][0].isupper() and not tokens[0] in tagger.vw.w2i:
                     tokens[0] = tokens[0][0] + tokens[0][1:]
+                print("Token:", tokens)
+                print("Tags:",tags)
                 f.write("\n".join([x[0] + "\t" + x[1] for x in tagger.tag_sent(tokens, tags)]) + '\n')
                 f.write("\n")
                 tokens = []
@@ -88,6 +94,11 @@ def tag_augmented(input, output, tagger):
             else:
                 tokens.append(i.split()[0])
                 tags.append(i.split()[1].strip())
+
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -178,3 +189,4 @@ if __name__ == '__main__':
             for i in args.input:
                 tag_augmented(i+args.output, args.output, tagger)
             print('Done!              ')
+
