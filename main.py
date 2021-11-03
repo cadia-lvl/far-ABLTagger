@@ -91,9 +91,16 @@ def home() -> str:
     </body>
 </html>
 """.format(__version__)
+class TagInput(BaseModel):
+        type: Optional[str] = "text"
+        content: str
+        features: Optional[dict] = {"summary_length": 75}
+@app.post('/tag_simple')
+def tag(request: TagInput):
+    return tag_impl(request.features['input_text'])
 
 @app.post('/tag_simple/impl')
-def tag(input_text : str):
+def tag_impl(input_text : str):
     global args, tagger_coarse, tagger_fine
     tag_simple = []
     if input_text.strip() != '':
@@ -104,17 +111,17 @@ def tag(input_text : str):
                 simple_tokens += sentence.split()
         else:
             simple_tokens = input_text.strip().split()
-        print("tagger_coarse:",list(tagger_coarse.tag_sent(simple_tokens)))
         tokens, tags = [], []
         for token, tag in tagger_coarse.tag_sent(simple_tokens):
             tokens.append(token)
             tags.append(tag)
-        print("Tokens:",tokens)
-        print("Tags:",tags)
-        print("Fine:",list(tagger_fine.tag_sent(tokens, tags)))
         arr = []
         for token, tag in tagger_fine.tag_sent(tokens, tags):
             arr += [[token,tag]]
-        return JSONResponse(content={"output":arr})
+            response = {"response":{
+                        "type":"texts",
+                        "content":arr
+                    }}
+        return JSONResponse(content=response)
     return ""
 
