@@ -115,6 +115,7 @@ def tag_impl(input_text : str):
         for token, tag in tagger_coarse.tag_sent(simple_tokens):
             tokens.append(token)
             tags.append(tag)
+        print(tokens,tags)
         arr = []
         for token, tag in tagger_fine.tag_sent(tokens, tags):
             arr += [[token,tag]]
