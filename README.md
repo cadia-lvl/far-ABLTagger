@@ -27,6 +27,6 @@ test files can be found in `tests/`. There are two tests that can be performed.
 This ELG API was developed in EU's CEF project: [Microservices at your service](https://www.lingsoft.fi/en/microservices-at-your-service-bridging-gap-between-nlp-research-and-industry)
 
 # Underlying tools
-The underlying tagger is [Faroese implementation of ABLTagger](https://github.com/cadia-lvl/far-ABLTagger) by [Hinrik Hafsteinsson](https://github.com/hinrikur). This [updated version](https://github.com/cadia-lvl/far-ABLTagger/tree/elg-standard) of the tool is copied into the docker image when it is built. 
+The underlying tagger is [Faroese implementation of ABLTagger](https://github.com/cadia-lvl/far-ABLTagger) by [Hinrik Hafsteinsson](https://github.com/hinrikur), licensed under this [Apache License 2.0](https://github.com/cadia-lvl/far-ABLTagger/blob/master/LICENSE.md). This [updated version](https://github.com/cadia-lvl/far-ABLTagger/tree/elg-standard) of the tool is copied into the docker image when it is built. 
 
 The [Tokenizer](https://github.com/mideind/Tokenizer) [PyPi package](https://pypi.org/project/tokenizer/) is pip installed when the docker image is built. This tool was developed by [Miðeind](https://mideind.is/) and is licensed under this [MIT](https://github.com/mideind/Tokenizer/blob/master/LICENSE) license. 
